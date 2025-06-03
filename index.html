@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafetería Online</title>
+  <style>
+    
+    body { font-family: serif, sans-serif; margin: 0; padding: 0; background: #ebcdb4; 
+ }
+    header {
+      background: #bea491; 
+      color: rgba(29, 0, 0, 0.789);  
+      text-align: center; 
+      padding: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1em;
+    }
+    header img.logo {
+      height: 110px;
+      width: auto;
+      margin-left: 1em;
+    }
+    nav { 
+      background: #cf9884; 
+      padding: 1em; 
+      display: flex; 
+      justify-content: flex-end; 
+      align-items: center; 
+    }
+    .carrito-mini { 
+      color: rgb(79, 0, 0); 
+      background: #793b28; 
+      padding: 0.5em 1em; 
+      border-radius: 5px; 
+      cursor: pointer; 
+    }
+    .container { padding: 2em; }
+
+    /* Imagen grande estilo */
+    .imagen-cafeteria {
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+      margin-bottom: 2em;
+      border-radius: 10px;
+    }
+    .imagen-cafeteria img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      border-radius: 10px;
+    }
+    nav { 
+      background: #a1887f; 
+      padding: 1em; 
+      display: flex; 
+      justify-content: flex-end; 
+      align-items: center; 
+    }
+    .carrito-mini { 
+      color: white; 
+      background: #793b28; 
+      padding: 0.5em 1em; 
+      border-radius: 5px; 
+      cursor: pointer; 
+    }
+    .container { padding: 2em; }
+
+    /* Imagen grande estilo */
+    .imagen-cafeteria {
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+      margin-bottom: 2em;
+      border-radius: 10px;
+    }
+    .imagen-cafeteria img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      border-radius: 5px;
+    }
+
+    .productos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; }
+    .producto { border: 4px solid #744A4A; padding: 1em; text-align: center; }
+    .producto img { width: 80%; height: auto; border-radius: 10px; }
+    .categorias { margin-bottom: 2em ;}
+    .categorias ul { list-style: none; padding: 0; }
+    .categorias li { display: inline-block; background: #e0c7b4; padding: 0.5em 1em; margin: 0.25em; border-radius: 8px; cursor: pointer; transition: background 0.3s ease; }
+    .categorias li:hover { background: #d7b8a5; }
+    .carrito-item { display: flex; justify-content: space-between; margin-bottom: 0.5em; }
+    .carrito-item button { background: rgb(97, 1, 1); color: rgb(148, 107, 107); border: none; padding: 0.2em 0.5em; cursor: pointer; }
+    .redes-icons { display: flex; justify-content: center; gap: 1em; margin-top: 1em; }
+    .redes-icons img { width: 32px; height: 32px; }
+    .barra-carrito {
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 50vh;
+      width: 300px;
+      background: #a16f6f;
+      border-left: 2px solid #b6a0a0;
+      padding: 1em;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+      transition: transform 0.3s ease;
+      transform: translateX(100%);
+    }
+    .barra-carrito.mostrar {
+      display: block;
+      transform: translateX(0);
+    }
+    #carrito-total { margin-top: 1em; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\popo.png" alt="Logo Cafetería" class="logo" />
+    <div style="flex-grow: 1; text-align: center;">
+      <h1>The coffe COCO.A</h1>
+      <p>Cafetería especializada en cafés de alta calidad, con origen ético y producción artesanal.</p>
+    </div>
+  </header>
+  <nav>
+    <div class="carrito-mini" onclick="toggleCarrito()">
+      🛒 Carrito (<span id="carrito-cantidad">0</span>)
+    </div>
+  </nav>
+  <div class="container">
+    
+    
+
+    <!-- Imagen grande café -->
+    <div class="imagen-cafeteria">
+      <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\bot.png" alt="Imagen Cafetería" />
+    </div>
+    
+
+
+  <div class="container">
+    <section id="categorias">
+      <h2>Categorías</h2>
+      <div class="categorias">
+        <ul>
+          <li onclick="filtrarProductos('Todos')">Todos</li>
+          <li onclick="filtrarProductos('Café en Grano')">Café en Grano</li>
+          <li onclick="filtrarProductos('Café Molido')">Café Molido</li>
+          <li onclick="filtrarProductos('Descafeinado')">Black</li>
+        
+          <li onclick="filtrarProductos('Café de Origen Único')">Café de Origen Único</li>
+          <li onclick="filtrarProductos('Café Blend')">Café Blend</li>
+          <li onclick="filtrarProductos('Cápsulas de Café')">Cápsulas de Café</li>
+          <li onclick="filtrarProductos('Accesorios')">Accesorios</li>
+          <li onclick="filtrarProductos('Promociones')">Promociones</li>
+          <li onclick="filtrarProductos('Regalos')">Regalos</li>
+          <li onclick="filtrarProductos('Merchandising')">Merchandising</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="catalogo">
+
+
+      <center><h2>Creaciones Únicas</h2></center>
+      <div class="productos-grid">
+        <!-- Café en Grano -->
+        <div class="producto" data-categoria="Café en Grano">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\20.png" alt="Espresso" />
+          <h3>Espresso</h3>
+          <p>Intenso y aromático.</p>
+          <p><strong>$80</strong></p>
+          <button onclick="agregarAlCarrito('Espresso', 80)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Café en Grano">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\dosorganic.png" alt="Café Orgánico" />
+          <h3>Café Orgánico</h3>
+          <p>100% natural.</p>
+          <p><strong>$95</strong></p>
+          <button onclick="agregarAlCarrito('Café Orgánico', 95)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Café en Grano">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\intenso.png" alt="Café Intenso" />
+          <h3>Café Intenso</h3>
+          <p>Fuerte y con cuerpo.</p>
+          <p><strong>$85</strong></p>
+          <button onclick="agregarAlCarrito('Café Intenso', 85)">Añadir al carrito</button>
+        </div>
+
+        <!-- Café Molido -->
+        <div class="producto" data-categoria="Café Molido">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\clasicoblen.png" alt="Café Clásico" />
+          <h3>Café Clásico</h3>
+          <p>Sabor tradicional.</p>
+          <p><strong>$70</strong></p>
+          <button onclick="agregarAlCarrito('Café Clásico', 70)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Café Molido">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\suave.png" alt="Molido Suave" />
+          <h3>Molido Suave</h3>
+          <p>Delicado y aromático.</p>
+          <p><strong>$75</strong></p>
+          <button onclick="agregarAlCarrito('Molido Suave', 75)">Añadir al carrito</button>
+        </div>
+
+        <!-- Descafeinado -->
+        <div class="producto" data-categoria="Descafeinado">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\back.png" alt="Descafeinado" />
+          <h3>Intenso Black</h3>
+          <p>Mismo sabor, sin cafeína.</p>
+          <p><strong>$85</strong></p>
+          <button onclick="agregarAlCarrito('Intenso Black', 85)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Descafeinado">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\21.png" alt="Descafeinado Premium" />
+          <h3>Premium</h3>
+          <p>Suave y sin cafeína.</p>
+          <p><strong>$90</strong></p>
+          <button onclick="agregarAlCarrito('Premium', 90)">Añadir al carrito</button>
+        </div>
+
+        <!-- Café de Origen Único -->
+        <div class="producto" data-categoria="Café de Origen Único">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\altu.png" alt="Café de Altura" />
+          <h3>Café de Altura</h3>
+          <p>De montañas elevadas.</p>
+          <p><strong>$100</strong></p>
+          <button onclick="agregarAlCarrito('Café de Altura', 100)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Café de Origen Único">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\premium.png" alt="Café de Valle" />
+          <h3>Café de Valle</h3>
+          <p>Origen especial del valle.</p>
+          <p><strong>$105</strong></p>
+          <button onclick="agregarAlCarrito('Café de Valle', 105)">Añadir al carrito</button>
+        </div>
+
+        <!-- Café Blend -->
+        <div class="producto" data-categoria="Café Blend">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\fuerte.png" alt="Blend Premium" />
+          <h3>Blend Premium</h3>
+          <p>Mezcla de granos finos.</p>
+          <p><strong>$110</strong></p>
+          <button onclick="agregarAlCarrito('Blend Premium', 110)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Café Blend">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\24.png" alt="Blend Clásico" />
+          <h3>Blend Clásico</h3>
+          <p>Mezcla equilibrada.</p>
+          <p><strong>$100</strong></p>
+          <button onclick="agregarAlCarrito('Blend Clásico', 100)">Añadir al carrito</button>
+        </div>
+
+        <!-- Cápsulas de Café -->
+        <div class="producto" data-categoria="Cápsulas de Café">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\27.png" alt="Cápsulas Espresso" />
+          <h3>Cápsulas Espresso</h3>
+          <p>Compatible con máquinas Nespresso.</p>
+          <p><strong>$120</strong></p>
+          <button onclick="agregarAlCarrito('Cápsulas Espresso', 120)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Cápsulas de Café">
+          <center><img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\29.png" alt="Cápsulas Descafeinado" />
+          <h3>Cápsulas</h3>
+          <p>Delicioso sabor.</p>
+          <p><strong>$125</strong></p>
+          <button onclick="agregarAlCarrito('Cápsulas', 125)">Añadir al carrito</button>
+        </div>
+
+        <!-- Accesorios -->
+        <div class="producto" data-categoria="Accesorios">
+          <center><img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\31.png" alt="Taza Cerámica" />
+          <h3>Taza Cerámica</h3>
+          <p>Ideal para tu café.</p>
+          <p><strong>$50</strong></p>
+          <button onclick="agregarAlCarrito('Taza Cerámica', 50)">Añadir al carrito</button>
+        </div>
+        <div class="producto" data-categoria="Accesorios">
+          <center><img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\33.png" alt="Molino Manual" />
+          <h3>Molino Manual</h3>
+          <p>Para moler café fresco.</p>
+          <p><strong>$200</strong></p>
+          <button onclick="agregarAlCarrito('Molino Manual', 200)">Añadir al carrito</button>
+        </div>
+
+        <!-- Promociones -->
+        <div class="producto" data-categoria="Promociones">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\22.png" alt="Combo Café" />
+          <h3>Combo Café</h3>
+          <p>Café en grano + molido con descuento.</p>
+          <p><strong>$140</strong></p>
+          <button onclick="agregarAlCarrito('Combo Café', 140)">Añadir al carrito</button>
+        </div>
+
+        <!-- Regalos -->
+        <div class="producto" data-categoria="Regalos">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\35.png" alt="Caja Regalo" />
+          <h3>Caja Regalo</h3>
+          <p>Selección especial para regalar.</p>
+          <p><strong>$180</strong></p>
+          <button onclick="agregarAlCarrito('Caja Regalo', 180)">Añadir al carrito</button>
+        </div>
+
+        <!-- Merchandising -->
+        <div class="producto" data-categoria="Merchandising">
+          <img src="c:\Users\cotod\OneDrive\Documentos\PROYECTO FINAL\36.png" alt="Camiseta Café" />
+          <h3>Camiseta Café</h3>
+          <p>Camiseta con logo y diseño bonito.</p>
+          <p><strong>$75</strong></p>
+          <button onclick="agregarAlCarrito('Camiseta Café', 75)">Añadir al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <center><section id="registro">
+      <h2>Formulario de Registro</h2>
+      <form>
+        <label>Nombre:</label>
+        <input type="text" name="nombre" required />
+        <label>Correo electrónico:</label>
+        <input type="email" name="email" required />
+        <label>Contraseña:</label>
+        <input type="password" name="password" required />
+        <button type="submit">Registrarse</button>
+      </form>
+    </section></center>
+
+    <section id="contacto">
+      
+      
+      <div class="redes-icons">
+        
+        <a href="https://www.instagram.com/coffe_coco_a?igsh=dGVhaTY4a2V0OWhy"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" /></a>
+        <a href="https://whatsapp.com/channel/0029Vb6X4GADJ6H9lij8120t"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" /></a>
+        <a href="https://www.facebook.com/share/19MNxqnRDc/"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+      </div>
+    </section>
+  </div>
+
+  <div id="carrito-barra" class="barra-carrito">
+    
+  <div style="text-align: right; margin-bottom: 1em;">
+    <button onclick="ocultarCarrito()" style="background-color: #f8d5e2; color: #000; padding: 0.3em 0.8em; border: none; border-radius: 5px; cursor: pointer;">
+      ✖ Cerrar
+    </button>
+  </div>
+
+<h2>Carrito de Compras</h2>
+  
+
+    <div id="carrito-lista">
+      <p>No hay productos en el carrito.</p>
+    </div>
+    <div id="carrito-total">Total: $0</div>
+<button onclick="mostrarFormularioPago()" style="margin-top: 1em; padding: 0.5em; width: 100%; background-color: #f8d5e2; color: #000; border: none; border-radius: 5px; cursor: pointer;">
+  Comprar con tarjeta
+</button>
+
+  </div>
+
+  <footer>
+    <p><center>&copy; 2025 Cafetería Online. De la mas pro del mundo Mundiall.</center></p>
+  </footer>
+
+  <script>
+    const carrito = [];
+    
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      actualizarCarrito();
+      mostrarCarrito();
+    }
+
+    function eliminarDelCarrito(index) {
+      carrito.splice(index, 1);
+      actualizarCarrito();
+      if (carrito.length === 0) {
+        ocultarCarrito();
+      }
+    }
+
+    function actualizarCarrito() {
+      const carritoLista = document.getElementById('carrito-lista');
+      const cantidad = document.getElementById('carrito-cantidad');
+      const totalDisplay = document.getElementById('carrito-total');
+      carritoLista.innerHTML = '';
+
+      let total = 0;
+
+      if (carrito.length === 0) {
+        carritoLista.innerHTML = '<p>No hay productos en el carrito.</p>';
+        totalDisplay.textContent = 'Total: $0';
+      } else {
+        carrito.forEach((item, index) => {
+          total += item.precio;
+          const div = document.createElement('div');
+          div.className = 'carrito-item';
+          div.innerHTML = `${item.nombre} - $${item.precio} <button onclick="eliminarDelCarrito(${index})">X</button>`;
+          carritoLista.appendChild(div);
+        });
+        totalDisplay.textContent = 'Total: $' + total;
+      }
+
+      cantidad.textContent = carrito.length;
+    }
+
+    function toggleCarrito() {
+      document.getElementById('carrito-barra').classList.toggle('mostrar');
+    }
+
+    function mostrarCarrito() {
+      document.getElementById('carrito-barra').classList.add('mostrar');
+    }
+
+    function ocultarCarrito() {
+      document.getElementById('carrito-barra').classList.remove('mostrar');
+    }
+
+    // Función para filtrar productos por categoría
+    function filtrarProductos(categoria) {
+      const productos = document.querySelectorAll('.producto');
+      productos.forEach(producto => {
+        const cat = producto.getAttribute('data-categoria');
+        if (categoria === 'Todos' || cat === categoria) {
+          producto.style.display = 'block';
+        } else {
+          producto.style.display = 'none';
+        }   
+      });
+    }
+    
+  
+function mostrarFormularioPago() {
+  if (carrito.length === 0) {
+    alert("Tu carrito está vacío.");
+    return;
+  }
+  
+  const totalDisplayInForm = document.getElementById("total-a-pagar");
+  const totalCarrito = carrito.reduce((sum, item) => sum + item.precio, 0);
+  totalDisplayInForm.textContent = "Total a pagar: $" + totalCarrito;
+
+  document.getElementById("formulario-pago").style.display = "block";
+}
+
+function cerrarFormularioPago() {
+  document.getElementById("formulario-pago").style.display = "none";
+}
+
+function procesarPago(event) {
+  event.preventDefault();
+  const nombre = document.getElementById("nombre-tarjeta").value;
+  const numero = document.getElementById("numero-tarjeta").value;
+  const fecha = document.getElementById("fecha-vencimiento").value;
+  const cvv = document.getElementById("cvv").value;
+
+  if (nombre && numero && fecha && cvv) {
+    alert("¡Pago exitoso! Gracias por tu compra, " + nombre);
+    carrito.length = 0;
+    actualizarCarrito();
+    cerrarFormularioPago();
+    ocultarCarrito();
+  } else {
+    alert("Por favor completa todos los campos.");
+  }
+}
+
+</script>
+
+<div id="formulario-pago" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:1.5em; border:2px solid #ccc; z-index:2000; border-radius:10px; box-shadow: 0 0 15px rgba(0,0,0,0.3);">
+  <h3>Datos de Tarjeta</h3>
+  <p id="total-a-pagar" style="font-weight:bold; margin-bottom:1em;"></p>
+  <form onsubmit="procesarPago(event)">
+    <label>Nombre en la tarjeta:</label><br>
+    <input type="text" id="nombre-tarjeta" required><br><br>
+    <label>Número de tarjeta:</label><br>
+    <input type="text" id="numero-tarjeta" maxlength="16" required><br><br>
+    <label>Fecha de vencimiento:</label><br>
+    <input type="month" id="fecha-vencimiento" required><br><br>
+    <label>CVV:</label><br>
+    <input type="text" id="cvv" maxlength="4" required><br><br>
+    <button type="submit" style="background-color: #f8d5e2; color:#000; padding:0.5em 1em; border:none; border-radius:5px;">Pagar</button>
+    <button type="button" onclick="cerrarFormularioPago()" style="margin-left:1em;">Cancelar</button>
+  </form>
+</div>
+
+</body>
+</html>
